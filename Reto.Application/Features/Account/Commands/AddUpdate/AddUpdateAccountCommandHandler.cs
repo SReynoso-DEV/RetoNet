@@ -67,7 +67,6 @@ namespace Reto.Application.Features.Client.Commands
                 throw new BusinessException("Cliente inexistente");
 
                 account.ClientId = client.ClientId;
-                account.Status = request.Status ?? account.Status;
                 account.Client = client;
             }
 
@@ -75,6 +74,7 @@ namespace Reto.Application.Features.Client.Commands
             account.AccountNumber = request.AccountNumber ?? account.AccountNumber;
             account.AccountType = request.AccountType ?? account.AccountType;
             account.InitialBalance = request.InitialBalance ?? account.InitialBalance;
+            account.Status = request.Status ?? account.Status;
 
             if (request.AccountId.HasValue)
                 await _accountRepository.Update(account);

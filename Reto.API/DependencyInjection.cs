@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
 using Microsoft.EntityFrameworkCore;
 using Reto.API.Converters;
 using Reto.API.Filters;
@@ -24,6 +25,7 @@ namespace Reto.API
             services.AddControllers(options =>
             {
                 options.Filters.Add(new ValidationActionFilter());
+                options.ModelBinderProviders.Insert(0, new Converters.DateTimeModelBinderProvider());
             })
             .AddJsonOptions(options =>
             {
