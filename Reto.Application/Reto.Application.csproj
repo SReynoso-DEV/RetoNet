@@ -13,6 +13,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Reto.Domain\Reto.Domain.csproj" />
+    <ProjectReference Include="..\Reto.Resource\Reto.Resource.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Features\Transaction\Queries\" />
   </ItemGroup>
 
 </Project>

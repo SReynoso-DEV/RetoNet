@@ -8,37 +8,40 @@ using Entities = Reto.Domain.Entities;
 
 namespace Reto.Application.Features.Client.Commands
 {
-    public class AddUpdateClientCommandHandler : IRequestHandler<AddUpdateClientCommand, GenericResponse<AddUpdateClientCommandResponse>>
+    public class AddUpdateClientCommandHandler : IRequestHandler<AddUpdateClientCommand, GenericResponse<ClientCommandQueryResponse>>
     {
         private readonly IGenericRepository<Entities.Client> _clientRepository;
+        private readonly IGenericRepository<Entities.Person> _personRepository;
 
-        public AddUpdateClientCommandHandler(IGenericRepository<Entities.Client> clientRepository)
+        public AddUpdateClientCommandHandler(IGenericRepository<Entities.Client> clientRepository, IGenericRepository<Entities.Person> personRepository)
         {
             _clientRepository = clientRepository;
+            _personRepository = personRepository;
         }
 
-        public async Task<GenericResponse<AddUpdateClientCommandResponse>> Handle(AddUpdateClientCommand request, CancellationToken cancellationToken)
+        public async Task<GenericResponse<ClientCommandQueryResponse>> Handle(AddUpdateClientCommand request, CancellationToken cancellationToken)
         {            
             Entities.Client client = new();
             Entities.Person person = new();
 
             if (request.ClientId.HasValue)
             {
-                client = await _clientRepository.FirstOrDefaultWithInclude(x => x.ClientId == request.ClientId.Value && x.Status == true, x => x.Person) ?? throw new BusinessException("Cliente no encontrado.");
+                client = await _clientRepository.FirstOrDefaultWithInclude(x => x.ClientId == request.ClientId.Value && x.Status == true, x => x.Person) ?? 
+                    throw new BusinessException("Cliente no encontrado.");
                 person = client.Person ?? throw new BusinessException("Persona no existente");
             }
+            else
+            {
+                if (request.PersonId.HasValue)
+                {
+                    person = await _personRepository.FirstOrDefault(x => x.PersonId == request.PersonId.Value) ?? throw new BusinessException("Persona no existente");
+                }
+            }           
 
-            person.Identification = request.Identification ?? person.Identification;
-            person.PhoneNumber = request.PhoneNumber ?? person.PhoneNumber;
-            person.Address = request.Address ?? person.Address;
-            person.Age = request.Age ?? person.Age;
-            person.Gender = request.Gender ?? person.Gender;
-            person.Name = request.Name ?? person.Name;
-
-            client.Status = request.Status ?? client.Status;
             client.Password = request.Password is null ? client.Password : PasswordHasher.HashPassword(request.Password);
-            
+            client.PersonId = person.PersonId;
             client.Person = person;
+            client.Status = request.Status ?? client.Status;
 
             if (request.ClientId.HasValue)
                 await _clientRepository.Update(client);
@@ -48,9 +51,9 @@ namespace Reto.Application.Features.Client.Commands
                 await _clientRepository.Add(client);
             }
 
-            return new GenericResponse<AddUpdateClientCommandResponse>
+            return new GenericResponse<ClientCommandQueryResponse>
             {
-                Data = new AddUpdateClientCommandResponse
+                Data = new ClientCommandQueryResponse
                 {
                     ClientId = client.ClientId,
                     Address = person.Address,
@@ -59,7 +62,7 @@ namespace Reto.Application.Features.Client.Commands
                     PhoneNumber = person.PhoneNumber,
                     Name = person.Name
                 },
-                Status = "success",
+                Status = "Success",
                 Message = "Información guardada satisfactoriamente"
             };
             

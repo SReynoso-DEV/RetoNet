@@ -5,6 +5,7 @@ using Reto.Application.Password;
 using Reto.Domain.Entities;
 using Reto.Domain.Exceptions;
 using Reto.Domain.Interfaces;
+using Reto.Resource;
 using System;
 using Entities = Reto.Domain.Entities;
 
@@ -26,6 +27,23 @@ namespace Reto.Application.Features.Client.Commands
         {
             Entities.Account account = new();
             Entities.Client client = new();
+
+            if (!string.IsNullOrEmpty(request.AccountType))
+            {
+                if (request.AccountType.Trim().ToUpper() == Constants.AccountType.AHORRO.ToUpper())
+                {
+                    request.AccountType = Constants.AccountType.AHORRO;
+                }
+                else if (request.AccountType.Trim().ToUpper() == Constants.AccountType.CORRIENTE.ToUpper())
+                {
+                    request.AccountType = Constants.AccountType.CORRIENTE;
+                }
+                else
+                {
+                    throw new BusinessException($"Tipo de cuenta invalido. Los valores permitidos son: {Constants.AccountType.AHORRO} o {Constants.AccountType.CORRIENTE}");
+                }
+            }
+            
 
             if (request.AccountId.HasValue)
             {
@@ -78,7 +96,7 @@ namespace Reto.Application.Features.Client.Commands
                     InitialBalance = account.InitialBalance,
                     ClientName = client.Person.Name
                 },
-                Status = "success",
+                Status = "Success",
                 Message = "Información guardada satisfactoriamente"
             };
         }

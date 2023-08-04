@@ -31,7 +31,7 @@ namespace Reto.API
         {
             AddUpdateClientCommand addUpdateClientCommand = _mapper.Map<AddUpdateClientCommand>(request);
 
-            GenericResponse<AddUpdateClientCommandResponse> addUpdateClientCommandResponse = 
+            GenericResponse<ClientCommandQueryResponse> addUpdateClientCommandResponse = 
                 await _sender.Send(addUpdateClientCommand);
 
             GenericResponse<ClientResponse> response = _mapper.Map<GenericResponse<ClientResponse>>(addUpdateClientCommandResponse);
@@ -45,7 +45,7 @@ namespace Reto.API
             AddUpdateClientCommand addUpdateClientCommand = _mapper.Map<AddUpdateClientCommand>(request);
             addUpdateClientCommand.ClientId = id;
 
-            GenericResponse<AddUpdateClientCommandResponse> addUpdateClientCommandResponse = await _sender.Send(addUpdateClientCommand);
+            GenericResponse<ClientCommandQueryResponse> addUpdateClientCommandResponse = await _sender.Send(addUpdateClientCommand);
 
             GenericResponse<ClientResponse> response = _mapper.Map<GenericResponse<ClientResponse>>(addUpdateClientCommandResponse);
 

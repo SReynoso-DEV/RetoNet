@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Reto.Application.Features.Client.Commands
 {
-    public class AddUpdateClientCommandResponse
+    public class ClientCommandQueryResponse
     {
         public int ClientId { get; set; }
         public string Name { get; set; }

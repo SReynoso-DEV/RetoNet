@@ -1,5 +1,7 @@
 ﻿using Reto.Application.Models;
 using Reto.Domain.Exceptions;
+using System.ComponentModel.DataAnnotations;
+using System.Net;
 
 namespace Reto.API.Middlewares
 {
@@ -18,6 +20,10 @@ namespace Reto.API.Middlewares
             {
                 // Invoca el siguiente middleware en la cadena de ejecución
                 await next(context);
+            }
+            catch (ValidationException ex)
+            {
+                await HandleValidationExceptionAsync(context, ex);
             }
             catch (BusinessException ex)
             {
@@ -52,5 +58,23 @@ namespace Reto.API.Middlewares
                 await context.Response.WriteAsJsonAsync(genericResponse);
             }
         }
+
+        private Task HandleValidationExceptionAsync(HttpContext context, ValidationException ex)
+        {
+            _logger.LogError(ex, "Excepción de validacion del sistema.");
+            context.Response.ContentType = "application/json";
+            context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+
+            var errors = new List<string> { ex.Message };
+            var responseBody = new GenericResponse<List<string>>
+            {
+                Data = errors,
+                Message = "Error al procesar la solicitud.",
+                Status = "error"
+            };
+
+            return context.Response.WriteAsJsonAsync(responseBody);
+        }
+
     }
 }
