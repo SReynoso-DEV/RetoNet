@@ -40,12 +40,12 @@ namespace Reto.Infraestructure.Data.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<decimal>("Balance")
-                        .HasPrecision(13, 2)
-                        .HasColumnType("decimal(13,2)");
-
                     b.Property<int>("ClientId")
                         .HasColumnType("int");
+
+                    b.Property<decimal>("InitialBalance")
+                        .HasPrecision(13, 2)
+                        .HasColumnType("decimal(13,2)");
 
                     b.Property<bool>("Status")
                         .HasColumnType("bit");

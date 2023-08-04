@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Reto.Domain.Entities
+﻿namespace Reto.API.Models.Response.Account
 {
-    public class Account
+    public class AccountResponse
     {
         public int AccountId { get; set; }
         public string AccountNumber { get; set; }
@@ -14,7 +8,6 @@ namespace Reto.Domain.Entities
         public decimal InitialBalance { get; set; }
         public bool Status { get; set; }
         public int ClientId { get; set; }
-        public Client Client { get; set; }
-        public ICollection<Transaction> Transactions { get; set; }
+        public string ClientName { get; set; }
     }
 }

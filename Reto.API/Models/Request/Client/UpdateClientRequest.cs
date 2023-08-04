@@ -1,4 +1,4 @@
-﻿namespace Reto.API.Models.Request
+﻿namespace Reto.API.Models.Request.Client
 {
     public class UpdateClientRequest
     {

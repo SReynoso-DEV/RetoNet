@@ -1,4 +1,4 @@
-﻿namespace Reto.API.Models.Response
+﻿namespace Reto.API.Models.Response.Client
 {
     public class ClientResponse
     {

@@ -2,9 +2,10 @@
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Reto.API.Models.Request;
-using Reto.API.Models.Response;
+using Reto.API.Models.Request.Client;
+using Reto.API.Models.Response.Client;
 using Reto.Application.Features.Client.Commands;
+using Reto.Application.Features.Client.Commands.Delete;
 using Reto.Application.Features.Client.Queries;
 using Reto.Application.Features.Client.Queries.GetAll;
 using Reto.Application.Features.Client.Queries.GetById;
@@ -12,7 +13,7 @@ using Reto.Application.Models;
 
 namespace Reto.API
 {
-    [Route("api/[controller]")]
+    [Route("api/clientes")]
     [ApiController]
     public class ClientController : ControllerBase
     {
@@ -72,6 +73,22 @@ namespace Reto.API
 
 
             GenericResponse<List<ClientResponse>> response = _mapper.Map<GenericResponse<List<ClientResponse>>>(getAllClientsResponse);
+
+            return Ok(response);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+
+            GenericResponse<object> deleteClientResponse =
+                await _sender.Send(new DeleteClientCommand
+                {
+                    ClientId = id
+                });
+
+
+            GenericResponse<object> response = _mapper.Map<GenericResponse<object>>(deleteClientResponse);
 
             return Ok(response);
         }

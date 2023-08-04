@@ -28,7 +28,7 @@ namespace Reto.Infraestructure.Data.Config
                 .HasMaxLength(50)
                 .IsRequired();
 
-            builder.Property(x => x.Balance)
+            builder.Property(x => x.InitialBalance)
                 .HasPrecision(13, 2)
                 .IsRequired();
 

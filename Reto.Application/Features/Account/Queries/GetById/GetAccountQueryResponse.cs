@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Reto.Domain.Entities
+namespace Reto.Application.Features.Account.Queries.GetById
 {
-    public class Account
+    public class GetAccountQueryResponse
     {
         public int AccountId { get; set; }
         public string AccountNumber { get; set; }
@@ -14,7 +14,6 @@ namespace Reto.Domain.Entities
         public decimal InitialBalance { get; set; }
         public bool Status { get; set; }
         public int ClientId { get; set; }
-        public Client Client { get; set; }
-        public ICollection<Transaction> Transactions { get; set; }
+        public string ClientName { get; set; }
     }
 }
