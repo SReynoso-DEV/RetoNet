@@ -26,7 +26,7 @@ namespace Reto.API.Controllers
         }
 
         [HttpGet("{clientId}")]
-        public async Task<IActionResult> PerDates(int clientId, DateTime? startDate, DateTime? endDate)
+        public async Task<IActionResult> PerDates(int clientId, DateTime startDate, DateTime endDate)
         {
 
             GenericResponse<List<PerDatesQueryResponse>> perDateQueryResponse =

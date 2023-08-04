@@ -30,7 +30,7 @@ namespace Reto.API.Converters
             }
             else
             {
-                bindingContext.ModelState.TryAddModelError(bindingContext.ModelName, "Invalid date format. Expected format: " + DateFormat);
+                bindingContext.ModelState.TryAddModelError(bindingContext.ModelName, "Formato invalido. Se espera: " + DateFormat);
             }
 
             return Task.CompletedTask;
