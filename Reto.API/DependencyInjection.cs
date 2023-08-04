@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Reto.API.Mapping;
 using Reto.API.Middlewares;
 using Reto.Domain.Interfaces;
 using Reto.Infraestructure.Data;
@@ -14,6 +15,7 @@ namespace Reto.API
             services.AddControllers();
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
+            services.AddMappings();
 
             return services;
         }

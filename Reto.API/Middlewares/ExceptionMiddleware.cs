@@ -35,7 +35,7 @@ namespace Reto.API.Middlewares
 
                 await context.Response.WriteAsJsonAsync(genericResponse);
             }
-            catch (Domain.Exceptions.SystemException ex)
+            catch (Exception ex)
             {
                 // Manejo de la excepción de sistema y respuesta al cliente
                 _logger.LogError(ex, "Excepción del sistema.");

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Reto.API.Models
+namespace Reto.API.Models.Request
 {
     public class CreateClientRequest
     {

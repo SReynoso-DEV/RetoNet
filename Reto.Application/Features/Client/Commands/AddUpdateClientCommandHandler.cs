@@ -18,8 +18,7 @@ namespace Reto.Application.Features.Client.Commands
         }
 
         public async Task<GenericResponse<AddUpdateClientCommandResponse>> Handle(AddUpdateClientCommand request, CancellationToken cancellationToken)
-        {        
-            
+        {            
             Entities.Client client = new();
             Entities.Person person = new();
 
@@ -44,7 +43,10 @@ namespace Reto.Application.Features.Client.Commands
             if (request.ClientId.HasValue)
                 await _clientRepository.Update(client);
             else
+            {
+                client.Status = true;
                 await _clientRepository.Add(client);
+            }
 
             return new GenericResponse<AddUpdateClientCommandResponse>
             {

@@ -1,7 +1,9 @@
-﻿using MediatR;
+﻿using MapsterMapper;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Reto.API.Models;
+using Reto.API.Models.Request;
+using Reto.API.Models.Response;
 using Reto.Application.Features.Client.Commands;
 using Reto.Application.Features.Client.Queries;
 using Reto.Application.Features.Client.Queries.GetAll;
@@ -15,51 +17,38 @@ namespace Reto.API
     public class ClientController : ControllerBase
     {
         private readonly ISender _sender;
+        private readonly IMapper _mapper;
 
-        public ClientController(ISender sender)
+        public ClientController(ISender sender, IMapper mapper)
         {
             _sender = sender;
+            _mapper = mapper;
         }
 
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateClientRequest request)
         {
-            AddUpdateClientCommand addUpdateClientCommand = new()
-            {
-                Address = request.Address,
-                Age = request.Age,
-                Gender = request.Gender,
-                Identification = request.Identification,
-                Name = request.Name,
-                Password = request.Password,
-                PhoneNumber = request.PhoneNumber,
-                Status = true
-            };
+            AddUpdateClientCommand addUpdateClientCommand = _mapper.Map<AddUpdateClientCommand>(request);
 
-            var addUpdateClientCommandResponse = await _sender.Send(addUpdateClientCommand);
+            GenericResponse<AddUpdateClientCommandResponse> addUpdateClientCommandResponse = 
+                await _sender.Send(addUpdateClientCommand);
 
-            return Ok(addUpdateClientCommandResponse);
+            GenericResponse<ClientResponse> response = _mapper.Map<GenericResponse<ClientResponse>>(addUpdateClientCommandResponse);
+
+            return Ok(response);
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> Create(int id, UpdateClientRequest request)
         {
-            AddUpdateClientCommand addUpdateClientCommand = new()
-            {
-                Address = request.Address,
-                Age = request.Age,
-                Gender = request.Gender,
-                Identification = request.Identification,
-                Name = request.Name,
-                Password = request.Password,
-                PhoneNumber = request.PhoneNumber,
-                Status = request.Status,
-                ClientId = id
-            };
+            AddUpdateClientCommand addUpdateClientCommand = _mapper.Map<AddUpdateClientCommand>(request);
+            addUpdateClientCommand.ClientId = id;
 
             GenericResponse<AddUpdateClientCommandResponse> addUpdateClientCommandResponse = await _sender.Send(addUpdateClientCommand);
 
-            return Ok(addUpdateClientCommandResponse);
+            GenericResponse<ClientResponse> response = _mapper.Map<GenericResponse<ClientResponse>>(addUpdateClientCommandResponse);
+
+            return Ok(response);
         }
 
         [HttpGet("{id}")]
@@ -69,7 +58,9 @@ namespace Reto.API
             GenericResponse<GetClientQueryResponse> getClientCommandResponse =
                 await _sender.Send(new GetClientQuery { Id = id });
 
-            return Ok(getClientCommandResponse);
+            GenericResponse<ClientResponse> response = _mapper.Map<GenericResponse<ClientResponse>>(getClientCommandResponse);
+
+            return Ok(response);
         }
 
         [HttpGet()]
@@ -79,7 +70,10 @@ namespace Reto.API
             GenericResponse<List<GetClientQueryResponse>> getAllClientsResponse =
                 await _sender.Send(new GetAllClientsQuery());
 
-            return Ok(getAllClientsResponse);
+
+            GenericResponse<List<ClientResponse>> response = _mapper.Map<GenericResponse<List<ClientResponse>>>(getAllClientsResponse);
+
+            return Ok(response);
         }
     }
 }
