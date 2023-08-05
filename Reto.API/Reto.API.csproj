@@ -5,8 +5,10 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>e90f24fe-71fe-4632-ac3d-86e612125c3c</UserSecretsId>
+    <EnableSdkContainerSupport>true</EnableSdkContainerSupport>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>.</DockerfileContext>
+    <PublishProfile>DefaultContainter</PublishProfile>
   </PropertyGroup>
 
   <ItemGroup>
