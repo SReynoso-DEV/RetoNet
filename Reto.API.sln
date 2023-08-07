@@ -19,6 +19,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reto.Resource", "Reto.Resou
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{E83F4A25-C69E-4644-BD92-5990C8206BF3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reto.Test", "..\Reto.Test\Reto.Test.csproj", "{01B727AA-395E-43DC-A945-B24D38CB08D5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +51,10 @@ Global
 		{E83F4A25-C69E-4644-BD92-5990C8206BF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E83F4A25-C69E-4644-BD92-5990C8206BF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E83F4A25-C69E-4644-BD92-5990C8206BF3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01B727AA-395E-43DC-A945-B24D38CB08D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01B727AA-395E-43DC-A945-B24D38CB08D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01B727AA-395E-43DC-A945-B24D38CB08D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01B727AA-395E-43DC-A945-B24D38CB08D5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -59,6 +65,7 @@ Global
 		{72D2BBE8-3570-43BA-9B4C-A9DDD468A36A} = {CDD71E7B-2604-49C1-8171-73BE2D132C9F}
 		{54B21358-E949-4C33-B3DD-CBEA2D0F2E7B} = {CDD71E7B-2604-49C1-8171-73BE2D132C9F}
 		{C1EF1DC3-2068-4858-80CF-4DAF4E06CB51} = {CDD71E7B-2604-49C1-8171-73BE2D132C9F}
+		{01B727AA-395E-43DC-A945-B24D38CB08D5} = {AC49348E-093B-476C-960B-E055DF4707B9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CF197DE6-94B7-46B2-A273-7ADC791457CA}

@@ -40,7 +40,7 @@ namespace Reto.API
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Create(int id, UpdateClientRequest request)
+        public async Task<IActionResult> Update(int id, UpdateClientRequest request)
         {
             AddUpdateClientCommand addUpdateClientCommand = _mapper.Map<AddUpdateClientCommand>(request);
             addUpdateClientCommand.ClientId = id;
