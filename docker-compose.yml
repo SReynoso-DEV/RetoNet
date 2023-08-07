@@ -1,0 +1,33 @@
+version: '3.4'
+
+networks:
+  reto.api.network:
+
+services:
+  reto.api.db:
+    container_name: reto-api-db-container
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    ports:
+      - 8002:1433
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=RetoNet2023
+    networks:
+      - reto.api.network
+  reto.api:
+    container_name: reto-api-container
+    image: ${DOCKER_REGISTRY-}retoapi
+    build:
+      context: ./Reto.API
+      dockerfile: Dockerfile
+    ports:
+    - 8001:80
+    - 8000:443
+    depends_on:
+      - reto.api.db
+    environment:
+      - DB_HOST=reto.api.db
+      - DB_NAME=RetoNetDB
+      - DB_SA_PASSWORD=RetoNet2023
+    networks:
+      - reto.api.network
