@@ -16,10 +16,7 @@ services:
       - reto.api.network
   reto.api:
     container_name: reto-api-container
-    image: ${DOCKER_REGISTRY-}retoapi
-    build:
-      context: ./Reto.API
-      dockerfile: Dockerfile
+    image: sreynoso20/retoapi
     ports:
     - 8001:80
     - 8000:443
